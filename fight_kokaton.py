@@ -241,9 +241,7 @@ def main():
                     for exten in exten_list:
                         exten.update(screen)
                     
-            
                     
-
         key_lst = pg.key.get_pressed()
         bird.update(key_lst, screen)
         score_.update(screen)
