@@ -148,38 +148,37 @@ class Bomb:
         self.rct.move_ip(self.vx, self.vy)
         screen.blit(self.img, self.rct)
         
+# class Explosion:
+#     def __init__(self, bomb:pg.Surface):
+#         self.imgs = [
+#             pg.image.load(f"./fig/explosion.gif"),
+#         ]
+#         self.imgs.append(pg.transform.flip(
+#             pg.image.load(f"./fig/explosion.gif"), 
+#             True, 
+#             True
+#         ))
+#         self.imgs.append(pg.transform.flip(
+#             pg.image.load(f"./fig/explosion.gif"), 
+#             False, 
+#             True
+#         ))
+#         self.imgs.append(pg.transform.flip(
+#             pg.image.load(f"./fig/explosion.gif"), 
+#             True, 
+#             False
+#         ))
+#         self.imgs.append(pg.transform.flip(
+#             pg.image.load(f"./fig/explosion.gif"), 
+#             False, 
+#             False
+#         ))
+#         self.rct.center = bomb.rct.center
+#         self.life = 1000
         
-class Explosion:
-    def __init__(self, bomb:pg.Surface):
-        self.imgs = [
-            pg.image.load(f"./fig/explosion.gif"),
-        ]
-        self.imgs.append(pg.transform.flip(
-            pg.image.load(f"./fig/explosion.gif"), 
-            True, 
-            True
-        ))
-        self.imgs.append(pg.transform.flip(
-            pg.image.load(f"./fig/explosion.gif"), 
-            False, 
-            True
-        ))
-        self.imgs.append(pg.transform.flip(
-            pg.image.load(f"./fig/explosion.gif"), 
-            True, 
-            False
-        ))
-        self.imgs.append(pg.transform.flip(
-            pg.image.load(f"./fig/explosion.gif"), 
-            False, 
-            False
-        ))
-        self.rct.center = bomb.rct.center
-        self.life = 1000
-        
-    def update(self, screen:pg.Surface):
-        screen.blit(self.imgs[self.life%5],self.rct)
-        self.life -= 1
+#     def update(self, screen:pg.Surface):
+#         screen.blit(self.imgs[self.life%5],self.rct)
+#         self.life -= 1
         
 
 class Score:
@@ -230,18 +229,20 @@ def main():
                 if beam.rct.colliderect(bomb.rct):
                     # 撃墜＝Noneにする
                     beam = None
+                    # exten_list.append(Explosion(bombs[i]))
+                    # exten_list = [exten for exten in exten_list if exten.life > 0]
+                    # for exten in exten_list:
+                    #     exten.update(screen)
                     bombs[i] = None
                     bird.change_img(num=6,screen=screen)
                     pg.display.update()
                     bombs = [bomb for bomb in bombs if bomb is not None]
                     score += 1
                     score_ = Score(score)
-                    exten_list.append(Explosion(bombs[i]))
-                    exten_list = [exten for exten in exten_list if exten.life > 0]
-                    for exten in exten_list:
-                        exten.update(screen)
                     
+            
                     
+
         key_lst = pg.key.get_pressed()
         bird.update(key_lst, screen)
         score_.update(screen)
