@@ -148,6 +148,7 @@ class Bomb:
         self.rct.move_ip(self.vx, self.vy)
         screen.blit(self.img, self.rct)
         
+        
 class Explosion:
     def __init__(self, bomb:pg.Surface):
         self.imgs = [
@@ -240,9 +241,7 @@ def main():
                     for exten in exten_list:
                         exten.update(screen)
                     
-            
                     
-
         key_lst = pg.key.get_pressed()
         bird.update(key_lst, screen)
         score_.update(screen)
