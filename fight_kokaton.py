@@ -75,30 +75,29 @@ class Bird:
         if check_bound(self.rct) != (True, True):
             self.rct.move_ip(-sum_mv[0], -sum_mv[1])
         screen.blit(self.img, self.rct)
-        
-        
+
+
 class Beam:
-    def __init__(self, Bird:Bird):
+    def __init__(self, bird: Bird):
         """
         ビーム画像Surfaceを生成する
-        引数1 bird:birdクラスのインスタンス
+        引数 bird：こうかとんインスタンス（Birdクラスのインスタンス）
         """
         self.img = pg.image.load(f"./fig/beam.png")
         self.rct = self.img.get_rect()
-        # bird.rct.center  こうかとんの中心縦、横座標
-        self.rct.left = Bird.rct.right
-        self.rct.centery = Bird.rct.centery
+        self.rct.left = bird.rct.right  # こうかとんの右横座標
+        self.rct.centery = bird.rct.centery  # こうかとんの中心縦座標
         self.vx, self.vy = +5, 0
-        
-    def update(self, screen:pg.Surface):
+
+    def update(self, screen: pg.Surface):
         """
-        ビームを速度に従って移動する
-        引数 screen:screenSurfaceである。
+        ビームを速度vxにしたがって移動させる
+        引数 screen：画面Surface
         """
         self.rct.move_ip(self.vx, self.vy)
-        screen.blit(self.img, self.rct)
-    
-    
+        screen.blit(self.img, self.rct)        
+
+
 class Bomb:
     """
     爆弾に関するクラス
@@ -145,8 +144,9 @@ def main():
             if event.type == pg.QUIT:
                 return
             if event.type == pg.KEYDOWN and event.key == pg.K_SPACE:
+                # キーが押されたら，かつ，キーの種類がスペースキーだったら
                 beam = Beam(bird)
-                
+
         
         screen.blit(bg_img, [0, 0])
         
@@ -159,8 +159,8 @@ def main():
                 return
         if beam is not None:
             if bomb is not None:
-                if beam.rct.collidedict(bomb.rct):
-                    # 撃墜でNone
+                if beam.rct.colliderect(bomb.rct):
+                    # 撃墜＝Noneにする
                     beam = None
                     bomb = None
 
